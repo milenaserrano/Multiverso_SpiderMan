@@ -1,0 +1,207 @@
+@import url('reset.css'); /* aqui, importa os estilos do reset e do global (como se fosse um ctrl c e ctrl v auomatico) */
+@import url('global.css');
+
+
+/* estilizando: */
+
+body {
+  background-color: var(--primary-color);  /* o fundo é a cor que está naquela variavel do primary color (no caso o vermelho) */
+}
+
+body::before { /* o before é um pseudoelemento (por isso os ::) */
+  content: "";
+  background-image: url('../images/spider-man-background.jpg'); /* imagem de fundo do site */
+  background-repeat: no-repeat; /* nao se repete caso ela passe do tamanho */
+  background-position: center;
+  background-size: cover; /* pega toda a area do elemento */
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0.2;
+  transition: background-image 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+
+
+.s-menu {
+  padding: 1rem 0;
+  width: 100%;
+  text-align: center;
+  position: relative; /* fica na frente da imagem de fundo e pode ser clicado normalmente */
+}
+
+.s-menu__item {
+  display: inline-block; /* itens lado a lado */
+  text-transform: uppercase; /* faz com que todas as letras sejam maiusculas */
+  margin: 0 1.25rem; /* 0 embaixo e 1.24rem nas laterais */
+}
+
+/* aqui arruma o icone da aranha (foto) */
+.s-menu__icon {
+  width: 2.5rem;
+  margin: 0 1.25rem;
+  vertical-align: middle;
+}
+
+
+.s-container {
+  position: relative; /* para ser clicado e ficar em cima da imagem de fundo */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly; 
+  perspective: 3000px;
+}
+
+
+/* aqui estiliza os cards dos 3 aranhas */
+.s-card {
+  border: 0.5rem solid white;
+  width: 100%;
+  height: 70vh;
+  position: absolute;
+  transition: filter .5s ease-in-out;
+}
+
+.s-card:nth-child(1) {
+  transform: rotateY(0deg) translateZ(50vw);
+}
+
+.s-card:nth-child(2) {
+  transform: rotateY(120deg) translateZ(50vw);
+}
+
+.s-card:nth-child(3) {
+  transform: rotateY(240deg) translateZ(50vw);
+}
+
+.s-card__background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* imagem ocupa todo o espaço definido pra ela */
+  position: absolute;
+  opacity: 1; /* para fazer a animação dos cards - mouse em cima e sumir o card*/
+  transition: opacity 1s ease-in-out; /*efeito de transição suave  e devagar do miranha do card (zoom vai e volta)*/
+}
+
+.s-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* que ele encaixe dentro do container que ele está colocado */
+  position: relative;
+  transition: 1s ease-in-out;
+}
+
+
+/* titulo que esta o nome do ator */
+.s-card__title {
+  font-size: 2rem;
+  text-transform: uppercase; /* tudo em maiusculo */
+  text-align: center; /* todo o conteudo fica alinhado no centro */
+  position: absolute; /* dentro e em cima do card logo depois do aranha */
+  width: 100%;
+  bottom: 0; 
+  transition: bottom 1s ease-in-out;
+}
+
+/* estilização do controlador */
+.s-controller {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  bottom: 1.5rem;
+  width: 100%;
+}
+
+/* estilização dos botões la embaixo dos cards */
+.s-controller__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem; /* quadradinho p/ formar um circulo perfeito */
+  border: 2px solid white;
+  border-radius: 50%;
+  background-color: var(--primary-color); /* variavel da cor vermelha */
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer; /* mãozinha do cursos */
+  z-index: 1; /* para a linha não cobrir os circulos dos botões */
+  transition: transform 0.3s ease-in-out; /* quando for aplicar a propriedade transform, ele demore 0.3seg e tenha o efeito ease... (transição lenta no comeo e no meio fica normal) */
+}
+
+/* quando passar o cursor em cima dele, vai aumentar um pouco pra dar aquele efeito legal */
+.s-controller__button:hover {
+  transform: scale(1.1); /* aumenta o botao quando passa o cursor*/
+}
+
+
+/* pega o 2 elemento que tenha esta classe antes dos :: */
+.s-controller__button:nth-child(2) {
+  margin: 0 3.75rem; /* fez com que os circulos dos botoes ficassem espaçados entre um e outro */
+}
+
+
+.s-controller__button--active {
+  background-color: white;
+  color: var(--primary-color);
+  border: 0.1875rem solid var(--primary-color);
+  outline: 0.125rem solid white;
+}
+
+
+/* linha que fica por trás dos botões (embaixo dos cards) */
+.s-controller__line {
+  background-color: white;
+  width: 50%;
+  height: 2px;
+  position: absolute; /* botoes acima da linha */
+}
+
+/* ------- Animação do Hover ------- */
+
+.s-card--hovered .s-card__background { /* quando a classe .s-card--hovered estiver iniciada, busca o s.card__background */ 
+  cursor: pointer; /*maozinha*/
+  opacity: 0; /* para o background sumir e ver o que ocorre atras dele*/
+}
+
+/* pega a imagem do elemento que esta sofrendo a alteração (no caso, o homem aranha) */
+.s-card--hovered .s-card__image {
+  transform: scale(1.4); /* coloca o homem aranha pra frente quando passa o mouse */
+  filter: drop-shadow(30px 10px 4px rgba(0, 0, 0, .5)); /* efeito de sombra */
+}
+
+
+/* troca a imagem de fundo quando passa o mouse em cima do card de cada miranha */
+body#spider-man-01-hovered::before { 
+  background-image: url('../images/pic-sm-bg-01.jpg');
+}
+body#spider-man-02-hovered::before {
+  background-image: url('../images/pic-sm-bg-02.jpg');
+}
+body#spider-man-03-hovered::before {
+  background-image: url('../images/pic-sm-bg-03.jpg');
+}
+
+
+body[id^="spider-man-"]::before { /*o atributo id tem que começar com spider-man (nao importa o que vem depois, desde que comece com spider) */
+  opacity: 1;
+}
+
+body[id^="spider-man-"] .s-card:not(.s-card--hovered) {
+  filter: grayscale(100%); /* os outros cards que nao estao com o cursor em cima, ficam em preto e branco */
+}
+
+.s-card--hovered .s-card__title {
+  bottom: 50%; /* o nome do homem aranha vai pro centro */
+}
+
+.s-cards-carousel {
+  display: flex;
+  justify-content: center;
+  width: calc(100vw / 3 - 10%);
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease-in;
+}

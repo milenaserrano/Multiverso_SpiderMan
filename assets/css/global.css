@@ -1,0 +1,17 @@
+/* 2/2 dos arquivos-base do projeto */
+
+
+/* importação da fonte: (do google fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+
+/* para não ter que colocar a # do vermelho toda vez, é criado uma variavel para esta cor e toda vez que for usar ela, é so colocar primary color que vai pegar a # do vermelho (no caso)  */
+
+:root {
+  --primary-color: #B9001F;  /* este -- antes do nome, significa que é uma variável que está dentro do css */
+}
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
